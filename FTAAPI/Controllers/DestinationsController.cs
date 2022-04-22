@@ -116,7 +116,7 @@ namespace FTAAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDestination(int id)
         {
-            var destination = await _context.Destinations.FindAsync(id);
+            var destination = await _context.Destinations.Include(e => e.DestinationImages).SingleOrDefaultAsync(e => e.Id == id);
             if (destination == null)
             {
                 return NotFound();
